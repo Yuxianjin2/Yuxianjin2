@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JingGroups示例页面" />
+    <title>JingGroups - 示例页面</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fa;
+        padding: 20px;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3498db;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      a {
+        color: #3498db;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+      }
+      ol {
+        margin-left: 20px;
+        margin-bottom: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 5px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      form {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+      }
+      input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      input[type="submit"] {
+        padding: 10px 15px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      input[type="submit"]:hover {
+        background-color: #2980b9;
+      }
+      .hidden {
+        display: none;
+      }
+      .message {
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      footer {
+        margin-top: 30px;
+        text-align: center;
+        color: #777;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="domain-message" class="message hidden"></div>
+      
+      <h1>一级标题</h1>
+      <div>
+        <p>
+          段落标记，a是行内元素，效果是这样的，<a href="https://yangzh.cn"
+            >这是一个超链接地址。</a
+          >
+        </p>
+        <ol>
+          <li>这是列表</li>
+          <li>这是列表</li>
+          <li>这是列表</li>
+          <li>这是列表</li>
+        </ol>
+        <p>
+          <img src="th.jpg" alt="图片替代说明文字" width="200" /><img
+            src="https://th.bing.com/th?id=ORMS.3fb2a132a334ae0b49ef98c73cc2c6cd&pid=Wdp&w=612&h=304&qlt=90&c=1&rs=1&dpr=1&p=0"
+            alt="说明文字"
+            width="200"
+          />
+        </p>
+        <table>
+          <tr>
+            <td>单元格1</td>
+            <td>单元格2</td>
+            <td>单元格3</td>
+          </tr>
+          <tr>
+            <td>单元格4</td>
+            <td>单元格5</td>
+            <td>单元格6</td>
+          </tr>
+          <tr>
+            <td>单元格7</td>
+            <td>单元格8</td>
+            <td>单元格9</td>
+          </tr>
+        </table>
+        <form action="https://search.douban.com/book/subject_search">
+          <input type="text" name="search_text" placeholder="请输入搜索内容" />
+          <input type="submit" value="搜索" />
+        </form>
+      </div>
+      
+      <footer>
+        <p>&copy; 2023 JingGroups. 保留所有权利。</p>
+        <p>访问我们的官方网站: <a href="https://jingroups.sbs">jingroups.sbs</a></p>
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // 域名检查功能
+        const checkDomain = () => {
+          const hostname = window.location.hostname;
+          const domainMessage = document.getElementById('domain-message');
+          
+          if(hostname.includes('jingroups.sbs')) {
+            console.log('通过jingroups.sbs访问');
+            domainMessage.textContent = '您正在通过jingroups.sbs官方域名访问，欢迎！';
+            domainMessage.classList.remove('hidden', 'error');
+            domainMessage.classList.add('success');
+          } else {
+            console.log('非jingroups.sbs域名访问');
+            domainMessage.textContent = '请通过jingroups.sbs官方域名访问获得完整体验！';
+            domainMessage.classList.remove('hidden', 'success');
+            domainMessage.classList.add('error');
+          }
+        };
+        
+        // 执行域名检查
+        checkDomain();
+        
+        // 为表格添加鼠标悬停效果
+        const tableRows = document.querySelectorAll('table tr');
+        tableRows.forEach(row => {
+          row.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#e3f2fd';
+          });
+          row.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '';
+          });
+        });
+        
+        // 为表单添加提交事件
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+          const input = this.querySelector('input[type="text"]');
+          if(!input.value.trim()) {
+            e.preventDefault();
+            alert('请输入搜索内容！');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JingGroups官方网站" />
+  <title>JingGroups - 欢迎访问</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links li {
+      margin-left: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #3498db;
+    }
+    .hero {
+      padding: 4rem 0;
+      text-align: center;
+      background-color: #3498db;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #2c3e50;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #1a252f;
+    }
+    .features {
+      padding: 4rem 0;
+      background-color: white;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .feature-card {
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .feature-card h3 {
+      margin: 1rem 0;
+      color: #2c3e50;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    .social-links {
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">JingGroups</div>
+        <ul class="nav-links">
+          <li><a href="#">首页</a></li>
+          <li><a href="#features">功能</a></li>
+          <li><a href="#about">关于我们</a></li>
+          <li><a href="#contact">联系方式</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>欢迎访问 JingGroups</h1>
+      <p>我们提供专业的团队协作解决方案，帮助您的团队更高效地工作。通过jingroups.sbs访问我们的服务，开启高效协作之旅。</p>
+      <a href="https://jingroups.sbs" class="btn">立即访问 jingroups.sbs</a>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">我们的特色功能</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>团队协作</h3>
+          <p>提供实时协作工具，让团队成员无缝协作，提高工作效率。</p>
+        </div>
+        <div class="feature-card">
+          <h3>项目管理</h3>
+          <p>强大的项目管理功能，帮助您跟踪进度，管理任务和截止日期。</p>
+        </div>
+        <div class="feature-card">
+          <h3>数据安全</h3>
+          <p>采用先进的加密技术，确保您的数据安全可靠。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="padding: 4rem 0; background-color: #f8f9fa;">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">关于我们</h2>
+      <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+        JingGroups成立于2025年，是一家专注于提供团队协作解决方案的科技公司。我们的使命是通过创新技术，帮助团队更高效地协作和沟通。
+        通过访问jingroups.sbs，您可以了解更多关于我们的信息和服务。
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" style="padding: 4rem 0; background-color: white;">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">联系我们</h2>
+      <div style="text-align: center;">
+        <p>电子邮件: jinyuxian24@qq.com</p>
+        <p>电话: 18768671838</p>
+        <p>地址: 中国贵州省贵阳市云岩区保利云山国际</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 JingGroups. 保留所有权利。</p>
+      <p>访问我们的官方网站: <a href="https://jingroups.sbs" style="color: #3498db;">jingroups.sbs</a></p>
+      <div class="social-links">
+        <a href="#">微信</a>
+        <a href="#">微博</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 简单的JavaScript功能，确保页面能够正常运行
+    document.addEventListener('DOMContentLoaded', function() {
+      // 平滑滚动到锚点
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if(targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if(targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // 检查是否通过jingroups.sbs访问
+      const checkDomain = () => {
+        const hostname = window.location.hostname;
+        if(hostname.includes('jingroups.sbs')) {
+          console.log('通过jingroups.sbs访问');
+        } else {
+          console.log('非jingroups.sbs域名访问');
+        }
+      };
+      
+      checkDomain();
+    });
+  </script>
+</body>
+</html>
