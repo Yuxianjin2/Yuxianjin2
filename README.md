@@ -15,3 +15,9 @@
 ## 访问网站
 
 请通过 [jingroups.sbs](https://jingroups.sbs) 访问我们的官方网站。
+
+## 关于作者
+
+- 🔭 正在开发团队协作解决方案
+- 🌱 不断学习前端和后端技术
+- 📫 联系方式: jinyuxian24@qq.com
