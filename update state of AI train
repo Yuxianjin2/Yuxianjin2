@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JingGroups AI训练系统" />
+  <title>JingGroups - AI训练系统</title>
+  <!-- WakaTime跟踪代码 -->
+  <script src="https://cdn.wakatime.com/wakatime.js"></script>
+  <script>
+    WakaTime.init({
+      apiKey: 'YOUR_WAKATIME_API_KEY', // 请替换为您的WakaTime API密钥
+      project: 'JingGroups-Trae'
+    });
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links li {
+      margin-left: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #3498db;
+    }
+    .main-content {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    .training-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      padding: 2rem;
+    }
+    .training-header {
+      background-color: #3498db;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      margin: -2rem -2rem 2rem -2rem;
+    }
+    .training-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .training-controls input {
+      width: 100px;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .training-controls button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .training-controls button:hover {
+      background-color: #2980b9;
+    }
+    .training-controls button:disabled {
+      background-color: #95a5a6;
+      cursor: not-allowed;
+    }
+    .training-status {
+      background-color: #f9f9f9;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 2rem;
+    }
+    .training-status h3 {
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    .training-status p {
+      margin-bottom: 0.5rem;
+    }
+    .training-log {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 1rem;
+      border-radius: 5px;
+      height: 300px;
+      overflow-y: auto;
+      font-family: monospace;
+    }
+    .training-log p {
+      margin: 0;
+      line-height: 1.4;
+    }
+    .metrics-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      flex: 1;
+      background-color: #f9f9f9;
+      padding: 1rem;
+      border-radius: 5px;
+      margin: 0 0.5rem;
+      text-align: center;
+    }
+    .metric-card:first-child {
+      margin-left: 0;
+    }
+    .metric-card:last-child {
+      margin-right: 0;
+    }
+    .metric-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #3498db;
+      margin: 0.5rem 0;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #ecf0f1;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background-color: #3498db;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .metrics-container {
+        flex-direction: column;
+      }
+      .metric-card {
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">JingGroups</div>
+        <ul class="nav-links">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="index.html#features">功能</a></li>
+          <li><a href="index.html#about">关于我们</a></li>
+          <li><a href="index.html#contact">联系方式</a></li>
+          <li><a href="ai-chat.html">AI聊天</a></li>
+          <li><a href="train.html" style="color: #3498db;">AI训练</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="container">
+      <h1 style="text-align: center; margin-bottom: 2rem;">JingGroups AI训练系统</h1>
+      
+      <div class="training-container">
+        <div class="training-header">
+          <h2>AI模型训练控制台</h2>
+        </div>
+        
+        <div class="training-controls">
+          <div>
+            <label for="training-mode">训练模式:</label>
+            <select id="training-mode" style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px;">
+              <option value="normal">普通训练</option>
+              <option value="advanced">1000次高级训练</option>
+              <option value="intensive">5000次强化训练</option>
+            </select>
+          </div>
+          <div>
+            <label for="iterations-input">训练迭代次数:</label>
+            <input type="number" id="iterations-input" min="1" max="1000" value="50">
+          </div>
+          <button id="start-training-btn">开始训练</button>
+          <button id="stop-training-btn" disabled>停止训练</button>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-fill" id="training-progress"></div>
+        </div>
+        
+        <div class="training-status">
+          <h3>训练状态</h3>
+          <p>总样本数: <span id="total-samples">0</span></p>
+          <p>已完成迭代: <span id="completed-iterations">0</span></p>
+          <p>上次训练时间: <span id="last-training-time">从未训练</span></p>
+        </div>
+        
+        <div class="metrics-container">
+          <div class="metric-card">
+            <h3>情感识别准确率</h3>
+            <div class="metric-value" id="emotion-accuracy">0%</div>
+          </div>
+          <div class="metric-card">
+            <h3>上下文相关性</h3>
+            <div class="metric-value" id="context-relevance">0%</div>
+          </div>
+          <div class="metric-card">
+            <h3>回复质量</h3>
+            <div class="metric-value" id="response-quality">0%</div>
+          </div>
+        </div>
+        
+        <div class="training-log" id="training-log">
+          <p>训练日志将在此显示...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 JingGroups. 保留所有权利。</p>
+      <p>访问我们的官方网站: <a href="https://jingroups.sbs" style="color: #3498db;">jingroups.sbs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const iterationsInput = document.getElementById('iterations-input');
+      const startTrainingBtn = document.getElementById('start-training-btn');
+      const stopTrainingBtn = document.getElementById('stop-training-btn');
+      const trainingProgress = document.getElementById('training-progress');
+      const totalSamplesEl = document.getElementById('total-samples');
+      const completedIterationsEl = document.getElementById('completed-iterations');
+      const lastTrainingTimeEl = document.getElementById('last-training-time');
+      const emotionAccuracyEl = document.getElementById('emotion-accuracy');
+      const contextRelevanceEl = document.getElementById('context-relevance');
+      const responseQualityEl = document.getElementById('response-quality');
+      const trainingLogEl = document.getElementById('training-log');
+      
+      let isTraining = false;
+      let trainingInterval;
+      let targetIterations = 0;
+      
+      // 格式化日期时间
+      function formatDateTime(timestamp) {
+        if (!timestamp) return '从未训练';
+        const date = new Date(timestamp);
+        return date.toLocaleString('zh-CN');
+      }
+      
+      // 添加日志
+      function addLog(message) {
+        const logEntry = document.createElement('p');
+        logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+        trainingLogEl.appendChild(logEntry);
+        trainingLogEl.scrollTop = trainingLogEl.scrollHeight;
+      }
+      
+      // 更新训练状态
+      async function updateTrainingStatus() {
+        try {
+          const response = await fetch('/api/train/status');
+          const data = await response.json();
+          
+          totalSamplesEl.textContent = data.totalSamples;
+          completedIterationsEl.textContent = data.completedIterations;
+          lastTrainingTimeEl.textContent = formatDateTime(data.lastTrainingTime);
+          
+          // 更新性能指标
+          if (data.performanceMetrics) {
+            emotionAccuracyEl.textContent = `${(data.performanceMetrics.emotionAccuracy * 100).toFixed(1)}%`;
+            contextRelevanceEl.textContent = `${(data.performanceMetrics.contextRelevance * 100).toFixed(1)}%`;
+            responseQualityEl.textContent = `${(data.performanceMetrics.responseQuality * 100).toFixed(1)}%`;
+          }
+          
+          // 更新进度条
+          if (targetIterations > 0 && data.completedIterations > 0) {
+            const progress = Math.min(data.completedIterations / targetIterations * 100, 100);
+            trainingProgress.style.width = `${progress}%`;
+            
+            // 如果训练完成，停止训练
+            if (data.completedIterations >= targetIterations && isTraining) {
+              stopTraining();
+              addLog(`训练完成! 共完成 ${data.completedIterations} 次迭代。`);
+            }
+          }
+          
+          return data;
+        } catch (error) {
+          console.error('获取训练状态出错:', error);
+          addLog(`获取训练状态出错: ${error.message}`);
+          return null;
+        }
+      }
+      
+      // 开始训练
+      async function startTraining() {
+        if (isTraining) return;
+        
+        const iterations = parseInt(iterationsInput.value);
+        if (isNaN(iterations) || iterations < 1) {
+          addLog('错误: 请输入有效的迭代次数');
+          return;
+        }
+        
+        const trainingMode = document.getElementById('training-mode').value;
+        
+        isTraining = true;
+        startTrainingBtn.disabled = true;
+        stopTrainingBtn.disabled = false;
+        targetIterations = iterations;
+        
+        // 根据训练模式选择不同的训练方法
+        if (trainingMode === 'intensive') {
+          // 5000次强化训练
+          addLog(`开始5000次强化训练，这可能需要较长时间...`);
+          startIntensiveTraining();
+        } else if (trainingMode === 'advanced') {
+          // 1000次高级训练
+          addLog(`开始1000次高级训练，请耐心等待...`);
+          startAdvancedTraining();
+        } else {
+          // 普通训练
+          addLog(`开始训练AI模型，迭代次数: ${iterations}`);
+          startNormalTraining(iterations);
+        
+        }
+      }
+      
+      // 普通训练函数
+      async function startNormalTraining(iterations) {
+        try {
+          const response = await fetch('/api/train', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ iterations })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            addLog(`训练成功: ${result.message}`);
+            updateMetrics(result.metrics);
+          } else {
+            addLog(`训练失败: ${result.message}`);
+          }
+        } catch (error) {
+          addLog(`训练出错: ${error.message}`);
+        } finally {
+          isTraining = false;
+          startTrainingBtn.disabled = false;
+          stopTrainingBtn.disabled = true;
+          updateTrainingStatus();
+        }
+      }
+      
+      // 高级训练函数 (1000次)
+      async function startAdvancedTraining() {
+        let currentIteration = 0;
+        const startIteration = 0;
+        const iterations = 1000;
+        const batchSize = 50;
+        
+        // 批次训练函数
+        async function trainBatch() {
+          if (!isTraining || currentIteration >= startIteration + iterations) {
+            stopTraining();
+            return;
+          }
+          
+          const remainingIterations = startIteration + iterations - currentIteration;
+          const currentBatchSize = Math.min(batchSize, remainingIterations);
+          
+          try {
+            addLog(`训练批次: ${currentIteration + 1} - ${currentIteration + currentBatchSize}`);
+            
+            const response = await fetch('/api/train', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ iterations: currentBatchSize })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              currentIteration = result.currentIteration;
+              addLog(`批次训练成功! 当前进度: ${currentIteration}/${startIteration + iterations}`);
+              
+              // 更新训练状态
+              await updateTrainingStatus();
+              
+              // 继续下一批次
+              setTimeout(trainBatch, 1000);
+            } else {
+              addLog(`批次训练失败: ${result.message}`);
+              stopTraining();
+            }
