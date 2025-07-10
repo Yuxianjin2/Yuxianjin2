@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JingGroups AI聊天系统" />
+  <title>JingGroups - AI聊天系统</title>
+  <!-- WakaTime跟踪代码 -->
+  <script src="https://cdn.wakatime.com/wakatime.js"></script>
+  <script>
+    WakaTime.init({
+      apiKey: 'YOUR_WAKATIME_API_KEY', // 请替换为您的WakaTime API密钥
+      project: 'JingGroups-Trae'
+    });
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      20% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+    .typing-indicator {
+      display: inline-block;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links li {
+      margin-left: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #3498db;
+    }
+    .main-content {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    .chat-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+    }
+    .chat-header {
+      background-color: #3498db;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+    .message {
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+    .user-message {
+      background-color: #e1f5fe;
+      margin-left: auto;
+      border-bottom-right-radius: 0;
+    }
+    .ai-message {
+      background-color: #f1f1f1;
+      margin-right: auto;
+      border-bottom-left-radius: 0;
+    }
+    .chat-input {
+      display: flex;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-top: 1px solid #eee;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-right: 0.5rem;
+    }
+    .chat-input button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .chat-input button:hover {
+      background-color: #2980b9;
+    }
+    .model-selector {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .model-selector select {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    .social-links {
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .chat-container {
+        height: 80vh;
+      }
+      .message {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">JingGroups</div>
+        <ul class="nav-links">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="index.html#features">功能</a></li>
+          <li><a href="index.html#about">关于我们</a></li>
+          <li><a href="index.html#contact">联系方式</a></li>
+          <li><a href="ai-chat.html" style="color: #3498db;">AI聊天</a></li>
+          <li><a href="train.html">AI训练</a></li>
+          <li><a href="trae_time_github_stats.html">使用统计</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="container">
+      <h1 style="text-align: center; margin-bottom: 2rem;">JingGroups AI聊天系统</h1>
+      
+      <div class="model-selector">
+        <label for="model-select">选择模型：</label>
+        <select id="model-select">
+          <option value="llama2">Llama 2</option>
+          <option value="chatglm">ChatGLM</option>
+          <option value="gpt4all">GPT4All</option>
+        </select>
+      </div>
+      
+      <div class="chat-container">
+        <div class="chat-header">
+          <h2>bigmake</h2>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <div class="message ai-message">
+            <p>你好啊！😊 我是JingGroups的AI助手bigmake。今天感觉怎么样？有什么我可以帮你的吗？</p>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="user-input" placeholder="在这里输入你的问题..." />
+          <button id="send-btn">发送</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 JingGroups. 保留所有权利。</p>
+      <p>访问我们的官方网站: <a href="https://jingroups.sbs" style="color: #3498db;">jingroups.sbs</a></p>
+      <div class="social-links">
+        <a href="#">微信</a>
+        <a href="#">微博</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatMessages = document.getElementById('chat-messages');
+      const userInput = document.getElementById('user-input');
+      const sendBtn = document.getElementById('send-btn');
+      const modelSelect = document.getElementById('model-select');
+      
+      // 添加用户消息到聊天界面
+      function addUserMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'user-message');
+        messageDiv.innerHTML = `<p>${message}</p>`;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // 添加AI消息到聊天界面，带有打字效果
+      function addAIMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'ai-message');
+        const paragraph = document.createElement('p');
+        messageDiv.appendChild(paragraph);
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // 实现打字效果
+        let i = 0;
+        const typingSpeed = 30; // 打字速度(ms)
+        const typeWriter = () => {
+          if (i < message.length) {
+            paragraph.textContent += message.charAt(i);
+            i++;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            setTimeout(typeWriter, typingSpeed);
+          }
+        };
+        
+        // 开始打字效果
+        setTimeout(typeWriter, 200);
+      }
+      
+      // 生成唯一的用户ID
+      function generateUserId() {
+        // 检查localStorage中是否已有用户ID
+        let userId = localStorage.getItem('jingroups_user_id');
+        if (!userId) {
+          // 生成新的用户ID
+          userId = 'user_' + Math.random().toString(36).substr(2, 9);
+          localStorage.setItem('jingroups_user_id', userId);
+        }
+        return userId;
+      }
+      
+      // 获取用户ID
+      const userId = generateUserId();
+      
+      // 显示AI正在输入的效果
+      function showTypingEffect(messageDiv) {
+        const typingIndicator = document.createElement('span');
+        typingIndicator.classList.add('typing-indicator');
+        typingIndicator.textContent = '';
+        
+        let dots = 0;
+        const typingInterval = setInterval(() => {
+          dots = (dots + 1) % 4;
+          typingIndicator.textContent = '.'.repeat(dots);
+        }, 300);
+        
+        messageDiv.appendChild(typingIndicator);
+        return { element: typingIndicator, interval: typingInterval };
+      }
+      
+      // 获取AI响应
+      async function getAIResponse(message, model) {
+        // 显示正在输入状态
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('message', 'ai-message');
+        loadingDiv.innerHTML = '<p>正在思考</p>';
+        chatMessages.appendChild(loadingDiv);
+        
+        // 添加打字效果
+        const typingEffect = showTypingEffect(loadingDiv.querySelector('p'));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        try {
+          // 实际调用后端API，传入用户ID
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message, model, userId })
+          });
+          
+          const data = await response.json();
+          
+          // 清除打字效果
+          clearInterval(typingEffect.interval);
+          
+          // 移除加载消息
+          chatMessages.removeChild(loadingDiv);
+          
+          if (data.error) {
+            return `出错了: ${data.error}`;
+          }
+          
+          return data.response;
+        } catch (error) {
+          // 清除打字效果
+          if (typingEffect && typingEffect.interval) {
+            clearInterval(typingEffect.interval);
+          }
+          
+          // 移除加载消息
+          chatMessages.removeChild(loadingDiv);
+          console.error('API调用出错:', error);
+          return `连接服务器时出错，请检查服务器是否正常运行。错误信息: ${error.message}`;
+        }
+      }
+      
+      // 发送消息事件处理
+      async function sendMessage() {
+        const message = userInput.value.trim();
+        if (message) {
+          // 清空输入框
+          userInput.value = '';
+          
+          // 添加用户消息
+          addUserMessage(message);
+          
+          // 获取选中的模型
+          const selectedModel = modelSelect.value;
+          
+          // 获取并添加AI响应
+          const aiResponse = await getAIResponse(message, selectedModel);
+          addAIMessage(aiResponse);
+        }
+      }
+      
+      // 点击发送按钮事件
+      sendBtn.addEventListener('click', sendMessage);
+      
+      // 按Enter键发送消息
+      userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
+      
+      // 平滑滚动到锚点
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if(targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if(targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
