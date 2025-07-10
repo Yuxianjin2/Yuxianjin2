@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JingGroups 搜索功能" />
+  <title>JingGroups - 文档搜索</title>
+  <!-- WakaTime跟踪代码 -->
+  <script src="https://cdn.wakatime.com/wakatime.js"></script>
+  <script>
+    WakaTime.init({
+      apiKey: 'YOUR_WAKATIME_API_KEY', // 请替换为您的WakaTime API密钥
+      project: 'JingGroups-Trae'
+    });
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links li {
+      margin-left: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #3498db;
+    }
+    .main-content {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+    .search-header {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .search-form {
+      display: flex;
+      margin-bottom: 2rem;
+    }
+    .search-form input {
+      flex: 1;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px 0 0 5px;
+    }
+    .search-form button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .search-form button:hover {
+      background-color: #2980b9;
+    }
+    .search-options {
+      margin-bottom: 1rem;
+    }
+    .search-results {
+      margin-top: 2rem;
+    }
+    .result-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    .result-path {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+    .result-matches {
+      margin-left: 1rem;
+    }
+    .match-line {
+      font-family: monospace;
+      background-color: #f8f9fa;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 3px;
+    }
+    .match-line span {
+      color: #999;
+      margin-right: 1rem;
+    }
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      display: none;
+    }
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: #777;
+      display: none;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    .social-links {
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .search-form {
+        flex-direction: column;
+      }
+      .search-form input {
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+      }
+      .search-form button {
+        border-radius: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">JingGroups</div>
+        <ul class="nav-links">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="index.html#features">功能</a></li>
+          <li><a href="index.html#about">关于我们</a></li>
+          <li><a href="index.html#contact">联系方式</a></li>
+          <li><a href="ai-chat.html">AI聊天</a></li>
+          <li><a href="search.html" style="color: #3498db;">文档搜索</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="container">
+      <div class="search-container">
+        <div class="search-header">
+          <h1>JingGroups 文档搜索</h1>
+          <p>在项目文件中搜索关键词</p>
+        </div>
+        
+        <div class="search-form">
+          <input type="text" id="search-input" placeholder="输入搜索关键词..." />
+          <button id="search-btn">搜索</button>
+        </div>
+        
+        <div class="search-options">
+          <label>
+            <input type="checkbox" id="include-html" checked /> 包含HTML文件
+          </label>
+          <label>
+            <input type="checkbox" id="include-js" checked /> 包含JavaScript文件
+          </label>
+          <label>
+            <input type="checkbox" id="include-md" checked /> 包含Markdown文件
+          </label>
+        </div>
+        
+        <div class="loading" id="loading">
+          <p>正在搜索，请稍候...</p>
+        </div>
+        
+        <div class="no-results" id="no-results">
+          <p>没有找到匹配的结果</p>
+        </div>
+        
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 JingGroups. 保留所有权利。</p>
+      <p>访问我们的官方网站: <a href="https://jingroups.sbs" style="color: #3498db;">jingroups.sbs</a></p>
+      <div class="social-links">
+        <a href="#">微信</a>
+        <a href="#">微博</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('search-input');
+      const searchBtn = document.getElementById('search-btn');
+      const searchResults = document.getElementById('search-results');
+      const loading = document.getElementById('loading');
+      const noResults = document.getElementById('no-results');
+      const includeHtml = document.getElementById('include-html');
+      const includeJs = document.getElementById('include-js');
+      const includeMd = document.getElementById('include-md');
+      
+      // 搜索函数
+      async function performSearch() {
+        const query = searchInput.value.trim();
+        if (!query) {
+          alert('请输入搜索关键词');
+          return;
+        }
+        
+        // 获取文件扩展名选项
+        const fileExtensions = [];
+        if (includeHtml.checked) fileExtensions.push('.html');
+        if (includeJs.checked) fileExtensions.push('.js');
+        if (includeMd.checked) fileExtensions.push('.md');
+        
+        // 显示加载状态
+        searchResults.innerHTML = '';
+        loading.style.display = 'block';
+        noResults.style.display = 'none';
+        
+        try {
+          // 调用搜索API
+          const response = await fetch('/api/search', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              query,
+              fileExtensions
+            })
+          });
+          
+          const data = await response.json();
+          
+          // 隐藏加载状态
+          loading.style.display = 'none';
+          
+          // 处理搜索结果
+          if (data.error) {
+            alert(`搜索出错: ${data.error}`);
+            return;
+          }
+          
+          if (data.results && data.results.length > 0) {
+            // 显示搜索结果
+            data.results.forEach(result => {
+              const resultItem = document.createElement('div');
+              resultItem.classList.add('result-item');
+              
+              const resultPath = document.createElement('div');
+              resultPath.classList.add('result-path');
+              resultPath.textContent = result.filePath;
+              resultItem.appendChild(resultPath);
+              
+              const resultMatches = document.createElement('div');
+              resultMatches.classList.add('result-matches');
+              
+              result.matches.forEach(match => {
+                const matchLine = document.createElement('div');
+                matchLine.classList.add('match-line');
+                matchLine.innerHTML = `<span>${match.lineNumber}:</span> ${match.content}`;
+                resultMatches.appendChild(matchLine);
+              });
+              
+              resultItem.appendChild(resultMatches);
+              searchResults.appendChild(resultItem);
+            });
+          } else {
+            // 显示无结果提示
+            noResults.style.display = 'block';
+          }
+        } catch (error) {
+          console.error('搜索请求出错:', error);
+          loading.style.display = 'none';
+          alert('搜索请求出错，请稍后再试');
+        }
+      }
+      
+      // 点击搜索按钮事件
+      searchBtn.addEventListener('click', performSearch);
+      
+      // 按Enter键搜索
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          performSearch();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
